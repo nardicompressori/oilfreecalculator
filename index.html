@@ -7,237 +7,68 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#E50C1D;--red-l:#f52030;--red-d:#b50818;
-  --gray:#3E4245;--gray-l:#5a5f66;--gray-ll:#9aa0aa;
-  --bg:#f2f3f5;--bg2:#ffffff;--bg3:#eaecf0;
-  --border:rgba(62,66,69,0.12);--border-hi:rgba(229,12,29,0.4);
-  --text:#1e2022;--text-m:#5a5f66;--text-d:#9aa0aa;
-  --fh:'Rajdhani',sans-serif;--fb:'IBM Plex Sans',sans-serif;--fm:'IBM Plex Mono',monospace;
+  --red:#E50C1D; --bg:#f2f3f5; --border:rgba(62,66,69,0.12);
+  --fh:'Rajdhani',sans-serif; --fb:'IBM Plex Sans',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%; overflow-x:hidden;} /* Permette lo scroll verticale su mobile */
-body{background:var(--bg);color:var(--text);font-family:var(--fb); -webkit-font-smoothing: antialiased;}
+body{background:var(--bg);font-family:var(--fb);overflow-x:hidden;}
 
-/* HEADER RESPONSIVE */
 header{
-  position:relative;z-index:10;display:flex;align-items:stretch;min-height:80px;
-  background:#fff;border-bottom:3px solid var(--red);
-  box-shadow:0 2px 16px rgba(0,0,0,.10);flex-shrink:0; flex-wrap: wrap;
+  display:flex; flex-wrap:wrap; background:#fff; border-bottom:3px solid var(--red);
+  min-height:70px; align-items:center; padding:10px 20px; gap:20px;
 }
-.logo-block{background:#fff;padding:8px 22px;display:flex;align-items:center;
-  border-right:1px solid var(--border);flex-shrink:0;min-width:200px; justify-content: center;}
-.logo-block img{height:50px;max-width:100%;object-fit:contain;display:block;}
+.logo-block img{height:45px; display:block;}
+h1{font-family:var(--fh); font-size:20px; text-transform:uppercase; letter-spacing:1px; flex:1; min-width:200px;}
 
-.header-center{flex:1;display:flex;flex-direction:column;justify-content:center;
-  align-items:center;padding:10px; min-width: 250px;}
-.header-center h1{font-family:var(--fh);font-size:22px;font-weight:700;letter-spacing:2px;
-  text-transform:uppercase;color:var(--text);line-height:1.2; text-align: center;}
+main{display:grid; grid-template-columns:280px 1fr; min-height:calc(100vh - 70px);}
 
-.header-right{display:flex;align-items:center;gap:10px;padding:8px 18px;
-  border-left:1px solid var(--border);flex-shrink:0; margin-left: auto;}
-
-/* LAYOUT PRINCIPALE */
-main{
-  display:grid;grid-template-columns:280px 1fr;
-  min-height:calc(100vh - 80px);
-}
-
-/* MOBILE OVERRIDES */
 @media (max-width: 850px) {
-  main { grid-template-columns: 1fr; }
-  header { height: auto; flex-direction: column; }
-  .logo-block, .header-right { border: none; width: 100%; justify-content: center; padding: 10px; }
-  .header-center { order: -1; width: 100%; }
-  .prod-strip { flex-direction: column; height: auto !important; padding: 20px !important; text-align: center; }
-  .prod-img-wrap { width: 100% !important; height: 150px !important; }
-  .canvas-wrap { height: 300px; min-height: 300px; }
-  #perfCanvas { position: relative !important; }
+  main{grid-template-columns: 1fr;}
+  .left-panel{border-right:none; border-bottom:1px solid var(--border);}
 }
 
-.left-panel{background:#fff;border-right:1px solid var(--border);
-  display:flex;flex-direction:column; overflow-y: visible;}
+.left-panel{background:#fff; border-right:1px solid var(--border); padding:15px; overflow-y:auto;}
+.vchip{padding:12px; background:#f8f9fa; border:1px solid var(--border); border-radius:8px; cursor:pointer; margin-bottom:8px; transition:0.2s;}
+.vchip.active{border-color:var(--red); background:rgba(229,12,29,0.05); font-weight:600;}
 
-.section{padding:12px 14px;border-bottom:1px solid var(--border);}
-.sec-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--text-d);font-weight:600;margin-bottom:8px;}
+.right-panel{display:flex; flex-direction:column; padding:15px; gap:15px;}
+.prod-card{background:#fff; padding:20px; border-radius:12px; border:1px solid var(--border); display:flex; flex-wrap:wrap; gap:20px; align-items:center;}
+.prod-img-wrap{width:150px; height:120px; display:flex; align-items:center; justify-content:center; background:#f9f9f9; border-radius:8px;}
+.prod-img-wrap img{max-width:100%; max-height:100%; object-fit:contain;}
 
-.vlist{display:flex;flex-direction:column;gap:5px;}
-.vchip{display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg3);
-  border:1px solid var(--border);border-radius:7px;cursor:pointer; transition:all .2s;}
-.vchip.active{border-color:var(--red);background:rgba(229,12,29,0.05);}
-.vname{font-family:var(--fh);font-size:15px;font-weight:600;}
+.reading{display:flex; flex-direction:column;}
+.flow-val{font-size:48px; font-family:'IBM Plex Mono',monospace; color:var(--red); font-weight:600; line-height:1;}
+.flow-unit{font-size:18px; color:#666; font-weight:500;}
 
-/* RIGHT PANEL */
-.right-panel{display:flex;flex-direction:column;background:var(--bg);}
-
-.prod-strip{
-  background:#fff;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;padding:14px 24px;gap:24px;
-  height:180px;flex-shrink:0;
-}
-.prod-img-wrap{flex-shrink:0;width:200px;height:150px;
-  display:flex;align-items:center;justify-content:center;}
-.prod-img{max-height:100%;max-width:100%;object-fit:contain;}
-
-.reading-box{margin-top:10px;background:rgba(229,12,29,.06);
-  border:1.5px solid rgba(229,12,29,.22);border-radius:9px;padding:8px 15px;
-  display:inline-flex;align-items:baseline;gap:6px;}
-.rq{font-family:var(--fm);font-size:28px;font-weight:600;color:var(--red);}
-
-.chart-area{flex:1;padding:15px;display:flex;flex-direction:column;}
-.canvas-wrap{flex:1;position:relative; background: #fff; border-radius: 10px; border: 1px solid var(--border);}
-#perfCanvas{
-  width: 100%; height: 100%;
-  display:block; cursor:ew-resize; touch-action:none;
-}
+.canvas-container{background:#fff; border-radius:12px; border:1px solid var(--border); padding:15px; position:relative; flex:1; min-height:350px;}
+canvas{width:100%; height:100%; touch-action:none; cursor:crosshair;}
 </style>
 </head>
 <body>
+
 <header>
-  <div class="logo-block">
-    <img src="https://www.nardicompressori.com/wp-content/uploads/2021/03/logo-nardi.png" alt="Nardi Logo">
-  </div>
-  <div class="header-center">
-    <h1>Pump Flow Rate Calculator</h1>
-  </div>
-  <div class="header-right">
-    <div class="unit-toggle" id="unitToggle">
-        <button class="unit-btn active" data-unit="metric">BAR</button>
-        <button class="unit-btn" data-unit="imperial">PSI</button>
-    </div>
-  </div>
+  <div class="logo-block"><img src="logo-nardi.png" alt="Nardi"></div>
+  <h1>Oilfree Pump Calculator</h1>
 </header>
 
 <main>
-  <aside class="left-panel">
-    <div class="section">
-      <p class="sec-label">Seleziona Modello</p>
-      <div class="vlist" id="pumpList">
-        </div>
-    </div>
-  </aside>
-
+  <aside class="left-panel" id="pumpList"></aside>
   <section class="right-panel">
-    <div class="prod-strip">
-      <div class="prod-img-wrap">
-        <img id="mainImg" class="prod-img" src="" alt="Pump Image">
-      </div>
-      <div class="prod-info">
-        <h2 id="modelName" class="prod-model">Seleziona Pompa</h2>
-        <div class="reading-box">
-            <span id="flowVal" class="rq">0.0</span>
-            <span id="unitLbl" class="ru">L/min</span>
-        </div>
+    <div class="prod-card">
+      <div class="prod-img-wrap"><img id="mainImg" src="" alt="Pump"></div>
+      <div class="reading">
+        <span id="flowVal" class="flow-val">0.0</span>
+        <span id="unitLbl" class="flow-unit">L/min @ 0.0 bar</span>
       </div>
     </div>
-
-    <div class="chart-area">
-      <div class="chart-top">
-        <span class="chart-title">Curva di Performance</span>
-        <span class="chart-hint">Trascina il cursore sul grafico</span>
-      </div>
-      <div class="canvas-wrap">
-        <canvas id="perfCanvas"></canvas>
-      </div>
+    <div class="canvas-container">
+      <canvas id="perfCanvas"></canvas>
     </div>
   </section>
 </main>
 
 <script>
-// --- DATI E LOGICA (OTTIMIZZATA) ---
+// DATI ORIGINALI (Esempio basato sulla tua struttura precedente)
 const PUMPS = [
-    { id:'ex3', name:'EXTREME 3', flow:600, maxP:10, img:'https://www.nardicompressori.com/wp-content/uploads/2018/10/EXTREME-3.jpg' },
-    { id:'ex4', name:'EXTREME 4', flow:800, maxP:10, img:'https://www.nardicompressori.com/wp-content/uploads/2018/10/EXTREME-4.jpg' },
-    { id:'esprit', name:'ESPRIT', flow:350, maxP:8, img:'https://www.nardicompressori.com/wp-content/uploads/2018/10/ESPRIT.jpg' }
-];
-
-let state = { pump: PUMPS[0], pressure: 0, unit: 'metric' };
-
-const canvas = document.getElementById('perfCanvas');
-const ctx = canvas.getContext('2d');
-
-function init() {
-    renderList();
-    updateUI();
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-    
-    // Supporto Mouse
-    canvas.addEventListener('mousedown', startDrag);
-    window.addEventListener('mousemove', drag);
-    window.addEventListener('mouseup', endDrag);
-    
-    // Supporto TOUCH (per Smartphone)
-    canvas.addEventListener('touchstart', (e) => { startDrag(e.touches[0]); e.preventDefault(); }, {passive:false});
-    window.addEventListener('touchmove', (e) => { drag(e.touches[0]); }, {passive:false});
-    window.addEventListener('touchend', endDrag);
-}
-
-function renderList() {
-    const list = document.getElementById('pumpList');
-    PUMPS.forEach(p => {
-        const div = document.createElement('div');
-        div.className = `vchip ${state.pump.id === p.id ? 'active' : ''}`;
-        div.innerHTML = `<div class="vname">${p.name}</div>`;
-        div.onclick = () => { state.pump = p; renderList(); updateUI(); };
-        list.appendChild(div);
-    });
-}
-
-function updateUI() {
-    document.getElementById('modelName').innerText = state.pump.name;
-    document.getElementById('mainImg').src = state.pump.img;
-    calculateFlow();
-    drawChart();
-}
-
-function calculateFlow() {
-    // Formula semplificata per esempio
-    let f = state.pump.flow * (1 - (state.pressure / state.pump.maxP));
-    if (f < 0) f = 0;
-    document.getElementById('flowVal').innerText = f.toFixed(1);
-}
-
-function resizeCanvas() {
-    const wrap = canvas.parentElement;
-    canvas.width = wrap.clientWidth;
-    canvas.height = wrap.clientHeight;
-    drawChart();
-}
-
-let isDragging = false;
-function startDrag(e) { isDragging = true; drag(e); }
-function endDrag() { isDragging = false; }
-function drag(e) {
-    if(!isDragging) return;
-    const rect = canvas.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    let p = (x / rect.width) * state.pump.maxP;
-    state.pressure = Math.max(0, Math.min(p, state.pump.maxP));
-    updateUI();
-}
-
-function drawChart() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    const w = canvas.width; const h = canvas.height;
-    
-    // Disegno curva base
-    ctx.beginPath();
-    ctx.strokeStyle = '#E50C1D';
-    ctx.lineWidth = 4;
-    ctx.moveTo(0, h);
-    ctx.quadraticCurveTo(w/2, h/4, w, h-20);
-    ctx.stroke();
-    
-    // Cursore pressione
-    let cursorX = (state.pressure / state.pump.maxP) * w;
-    ctx.fillStyle = '#E50C1D';
-    ctx.beginPath();
-    ctx.arc(cursorX, h/2, 10, 0, Math.PI*2);
-    ctx.fill();
-}
-
-init();
-</script>
-</body>
-</html>
+  { name: "EXTREME 3 0.75HP", maxQ: 140, maxP: 10, img: "EXTREME-3.jpg", curve: [[0,140],[2,110],[4,90],[6,75],[8,55],[10,0]] },
+  { name: "EXTREME 3 1.50HP", maxQ: 240, maxP: 10, img: "EXTREME-3
